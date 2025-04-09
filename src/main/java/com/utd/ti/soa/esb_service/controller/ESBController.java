@@ -110,8 +110,7 @@ public ResponseEntity createClient(@RequestBody Client client, @RequestHeader(Ht
     if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
     if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
     String response = webClient.post()
-        .uri("https://clientes1-production.up.railway.app/app/clients/create")
-        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .uri("https://clientes1-production.up.railway.app/app/clients/create")        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .body(BodyInserters.fromValue(client))
         .retrieve()
         .bodyToMono(String.class)
