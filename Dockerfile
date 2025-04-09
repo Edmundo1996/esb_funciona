@@ -13,6 +13,6 @@ ENV JAVA_OPTS="-Xmx256m -Xms128m"
 
 COPY --from=build /app/target/*.jar app.jar
 
-EXPOSE 5002
+EXPOSE 8080
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
