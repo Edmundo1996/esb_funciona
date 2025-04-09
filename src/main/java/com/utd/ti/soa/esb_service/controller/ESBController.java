@@ -165,7 +165,7 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.post()
-            .uri("https://products-production-4dfa.up.railway.app/app/products/create")
+            .uri("https://productos-production-1306.up.railway.app/app/products/create") // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(product))
             .retrieve()
@@ -179,7 +179,7 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.get()
-            .uri("https://products-production-4dfa.up.railway.app/app/products/all")
+            .uri("https://productos-production-1306.up.railway.app/app/products/all") // URI actualizada
             .retrieve()
             .bodyToMono(String.class)
             .block();
@@ -191,7 +191,7 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.patch()
-            .uri("https://products-production-4dfa.up.railway.app/app/products/update/" + id)
+            .uri("https://productos-production-1306.up.railway.app/app/products/update/" + id) // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(product))
             .retrieve()
@@ -205,12 +205,13 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.delete()
-            .uri("https://products-production-4dfa.up.railway.app/app/products/delete/" + id)
+            .uri("https://productos-production-1306.up.railway.app/app/products/delete/" + id) // URI actualizada
             .retrieve()
             .bodyToMono(String.class)
             .block();
         return ResponseEntity.ok(response);
     }
+
 
     // ========================= DESCUENTOS =========================
 
