@@ -24,7 +24,7 @@ public class ESBController {
     @PostMapping("/user/login")
     public ResponseEntity loginUser(@RequestBody User user) {
         String response = webClient.post()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/login")
+            .uri("https://usuarios-production-d84b.up.railway.app/app/users/login") // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(user))
             .retrieve()
@@ -38,7 +38,7 @@ public class ESBController {
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.post()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/create")
+            .uri("https://usuarios-production-d84b.up.railway.app/app/users/create") // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(user))
             .retrieve()
@@ -52,7 +52,7 @@ public class ESBController {
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.get()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/all")
+            .uri("https://usuarios-production-d84b.up.railway.app/app/users/all") // URI actualizada
             .retrieve()
             .bodyToMono(String.class)
             .block();
@@ -64,7 +64,7 @@ public class ESBController {
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
         String response = webClient.patch()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/update/" + id)
+            .uri("https://usuarios-production-d84b.up.railway.app/app/users/update/" + id) // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(user))
             .retrieve()
@@ -79,7 +79,7 @@ public class ESBController {
         if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
 
         String response = webClient.patch()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/delete/" + id)
+            .uri("https://usuarios-production-d84b.up.railway.app/app/users/delete/" + id) // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(""))
             .retrieve()
@@ -92,7 +92,7 @@ public class ESBController {
     @PostMapping("/user/reset-password")
     public ResponseEntity resetPassword(@RequestBody User user) {
         String response = webClient.post()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/reset-password")
+            .uri("https://usuarios-production-d84b.up.railway.app/app/users/reset-password") // URI actualizada
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .body(BodyInserters.fromValue(user))
             .retrieve()
@@ -100,6 +100,7 @@ public class ESBController {
             .block();
         return ResponseEntity.ok(response);
     }
+
 // ========================= CLIENTES =========================
 
 @PostMapping("/client")
