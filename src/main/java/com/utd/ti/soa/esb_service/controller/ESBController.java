@@ -19,88 +19,87 @@ public class ESBController {
     private final WebClient webClient = WebClient.create();
     private final Auth auth = new Auth();
 
-    // ========================= USUARIOS =========================
+ // ========================= USUARIOS =========================
 
-    @PostMapping("/user/login")
-    public ResponseEntity loginUser(@RequestBody User user) {
-        String response = webClient.post()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/login") // URI actualizada
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(user))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@PostMapping("/user/login")
+public ResponseEntity loginUser(@RequestBody User user) {
+    String response = webClient.post()
+        .uri("https://users-production-8ab1.up.railway.app/app/users/login") // URI actualizada
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(user))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
-    @PostMapping("/user")
-    public ResponseEntity createUser(@RequestBody User user, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
-        String response = webClient.post()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/create") // URI actualizada
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(user))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@PostMapping("/user")
+public ResponseEntity createUser(@RequestBody User user, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+    String response = webClient.post()
+        .uri("https://users-production-8ab1.up.railway.app/app/users/create") // URI actualizada
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(user))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
-    @GetMapping("/user")
-    public ResponseEntity getUsers(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
-        String response = webClient.get()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/all") // URI actualizada
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@GetMapping("/user")
+public ResponseEntity getUsers(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+    String response = webClient.get()
+        .uri("https://users-production-8ab1.up.railway.app/app/users/all") // URI actualizada
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
-    @PatchMapping("/user/update/{id}")
-    public ResponseEntity updateUser(@PathVariable String id, @RequestBody User user, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
-        String response = webClient.patch()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/update/" + id) // URI actualizada
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(user))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@PatchMapping("/user/update/{id}")
+public ResponseEntity updateUser(@PathVariable String id, @RequestBody User user, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+    String response = webClient.patch()
+        .uri("https://users-production-8ab1.up.railway.app/app/users/update/" + id) // URI actualizada
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(user))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
-    @DeleteMapping("/user/delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable String id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+@DeleteMapping("/user/delete/{id}")
+public ResponseEntity deleteUser(@PathVariable String id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
 
-        String response = webClient.patch()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/delete/" + id) // URI actualizada
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(""))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
+    String response = webClient.patch()
+        .uri("https://users-production-8ab1.up.railway.app/app/users/delete/" + id) // URI actualizada
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(""))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
 
-        return ResponseEntity.ok(response);
-    }
+    return ResponseEntity.ok(response);
+}
 
-    @PostMapping("/user/reset-password")
-    public ResponseEntity resetPassword(@RequestBody User user) {
-        String response = webClient.post()
-            .uri("https://users-production-8ab1.up.railway.app/app/users/reset-password") // URI actualizada
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(user))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
-
+@PostMapping("/user/reset-password")
+public ResponseEntity resetPassword(@RequestBody User user) {
+    String response = webClient.post()
+        .uri("https://users-production-8ab1.up.railway.app/app/users/reset-password") // URI actualizada
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(user))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
     // ========================= CLIENTES =========================
     // (El resto del código permanece igual)
 
