@@ -173,7 +173,7 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
             .block();
         return ResponseEntity.ok(response);
     }
-
+    
     @GetMapping("/product")
     public ResponseEntity getProducts(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
@@ -185,7 +185,7 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
             .block();
         return ResponseEntity.ok(response);
     }
-
+    
     @PatchMapping("/product/update/{id}")
     public ResponseEntity updateProduct(@PathVariable String id, @RequestBody Product product, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
@@ -199,7 +199,7 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
             .block();
         return ResponseEntity.ok(response);
     }
-
+    
     @DeleteMapping("/product/delete/{id}")
     public ResponseEntity deleteProduct(@PathVariable String id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
@@ -211,7 +211,6 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
             .block();
         return ResponseEntity.ok(response);
     }
-
 
     // ========================= DESCUENTOS =========================
 
