@@ -103,58 +103,60 @@ public class ESBController {
 
     // ========================= CLIENTES =========================
 
-    @PostMapping("/client")
-    public ResponseEntity createClient(@RequestBody Client client, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
-        String response = webClient.post()
-            .uri("https://clients-production-3094.up.railway.app/app/clients/create")
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(client))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+   // ========================= CLIENTES =========================
 
-    @GetMapping("/client")
-    public ResponseEntity getClients(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
-        String response = webClient.get()
-            .uri("https://clients-production-3094.up.railway.app/app/clients/all")
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@PostMapping("/client")
+public ResponseEntity createClient(@RequestBody Client client, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+    String response = webClient.post()
+        .uri("https://clientes1-production.up.railway.app/app/clients/create")
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(client))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
-    @PatchMapping("/client/update/{id}")
-    public ResponseEntity updateClient(@PathVariable String id, @RequestBody Client client, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        String response = webClient.patch()
-            .uri("https://clients-production-3094.up.railway.app/app/clients/update/" + id)
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(client))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@GetMapping("/client")
+public ResponseEntity getClients(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+    String response = webClient.get()
+        .uri("https://clientes1-production.up.railway.app/app/clients/all")
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
-    @DeleteMapping("/client/delete/{id}")
-    public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
-        if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
-        String response = webClient.patch()
-            .uri("https://clients-production-3094.up.railway.app/app/clients/delete/" + id)
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .body(BodyInserters.fromValue(""))
-            .retrieve()
-            .bodyToMono(String.class)
-            .block();
-        return ResponseEntity.ok(response);
-    }
+@PatchMapping("/client/update/{id}")
+public ResponseEntity updateClient(@PathVariable String id, @RequestBody Client client, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    String response = webClient.patch()
+        .uri("https://clientes1-production.up.railway.app/app/clients/update/" + id)
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(client))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
+
+@DeleteMapping("/client/delete/{id}")
+public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
+    if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
+    String response = webClient.patch()
+        .uri("https://clientes1-production.up.railway.app/app/clients/delete/" + id)
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .body(BodyInserters.fromValue(""))
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+    return ResponseEntity.ok(response);
+}
 
     // ========================= PRODUCTOS =========================
 
