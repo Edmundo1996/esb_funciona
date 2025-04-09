@@ -107,7 +107,7 @@ public ResponseEntity createClient(@RequestBody Client client, @RequestHeader(Ht
     if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
     if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
     String response = webClient.post()
-        .uri("http://clientes_1.railway.internal:8080/app/clients/create") // Usando la URL privada
+        .uri("https://clientes1-production-03d0.up.railway.app/app/clients/create") // Nueva ruta
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .body(BodyInserters.fromValue(client))
         .retrieve()
@@ -121,7 +121,7 @@ public ResponseEntity getClients(@RequestHeader(HttpHeaders.AUTHORIZATION) Strin
     if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
     if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
     String response = webClient.get()
-        .uri("http://clientes_1.railway.internal:8080/app/clients/all") // Usando la URL privada
+        .uri("https://clientes1-production-03d0.up.railway.app/app/clients/all") // Nueva ruta
         .retrieve()
         .bodyToMono(String.class)
         .block();
@@ -132,7 +132,7 @@ public ResponseEntity getClients(@RequestHeader(HttpHeaders.AUTHORIZATION) Strin
 public ResponseEntity updateClient(@PathVariable String id, @RequestBody Client client, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
     if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
     String response = webClient.patch()
-        .uri("http://clientes_1.railway.internal:8080/app/clients/update/" + id) // Usando la URL privada
+        .uri("https://clientes1-production-03d0.up.railway.app/app/clients/update/" + id) // Nueva ruta
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .body(BodyInserters.fromValue(client))
         .retrieve()
@@ -146,12 +146,13 @@ public ResponseEntity deleteClient(@PathVariable String id, @RequestHeader(HttpH
     if (!auth.validateToken(token)) return ResponseEntity.status(401).body("Token inválido o expirado");
     if (!"admin".equals(auth.getRoleFromToken(token))) return ResponseEntity.status(403).body("No tienes permisos");
     String response = webClient.delete()
-        .uri("http://clientes_1.railway.internal:8080/app/clients/delete/" + id) // Usando la URL privada
+        .uri("https://clientes1-production-03d0.up.railway.app/app/clients/delete/" + id) // Nueva ruta
         .retrieve()
         .bodyToMono(String.class)
         .block();
     return ResponseEntity.ok(response);
 }
+
     // ========================= PRODUCTOS =========================
 
     @PostMapping("/product")
